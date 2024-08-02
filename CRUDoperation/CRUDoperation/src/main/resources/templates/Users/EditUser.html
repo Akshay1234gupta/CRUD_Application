@@ -13,49 +13,42 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 mx-auto rounded border p-4 m-4">
-                <h2 class="text-center mb-5">Edit User</h2>
+                <h2 class="text-center mb-5">Update Student Information</h2>
 
-                <form method="post" th:object="${UsersDto}">
+                <form method="post" th:object="${usersDto}">
 
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">ID</label>
                         <div class="col-sm-8">
-                            <input readonly class="form-control-plaintext" th:value="${user.id}">
+                            <input readonly class="form-control-plaintext" th:value="${users.id}">
 
                         </div>
                     </div>
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">Name</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.name}">
+                            <input class="form-control" th:field="${usersDto.name}">
                             <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
-                                th:errors="${Users.name}"></p>
+                                th:errors="${usersDto.name}"></p>
                         </div>
                     </div>
-                    <div class="row mb-3">
-                        <label for="" class="col-sm-4 col-form-label">Name</label>
-                        <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.name}">
-                            <p th:if="${#fields.hasErrors('name')}" th:errorclass="text-danger"
-                                th:errors="${Users.name}"></p>
-                        </div>
-                    </div>
+
 
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">Email</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.email}">
+                            <input class="form-control" th:field="${usersDto.email}">
                             <p th:if="${#fields.hasErrors('email')}" th:errorclass="text-danger"
-                                th:errors="${Users.email}"></p>
+                                th:errors="${usersDto.email}"></p>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">Phone</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.phone}">
+                            <input class="form-control" th:field="${usersDto.phone}">
                             <p th:if="${#fields.hasErrors('phone')}" th:errorclass="text-danger"
-                                th:errors="${Users.phone}"></p>
+                                th:errors="${usersDto.phone}"></p>
                         </div>
                     </div>
 
@@ -63,18 +56,18 @@
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">Address</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.address}">
+                            <input class="form-control" th:field="${usersDto.address}">
                             <p th:if="${#fields.hasErrors('address')}" th:errorclass="text-danger"
-                                th:errors="${Users.address}"></p>
+                                th:errors="${usersDto.address}"></p>
                         </div>
                     </div>
 
                     <div class="row mb-3">
                         <label for="" class="col-sm-4 col-form-label">Description</label>
                         <div class="col-sm-8">
-                            <input class="form-control" th:field="${UsersDto.description}">
+                            <input class="form-control" th:field="${usersDto.description}">
                             <p th:if="${#fields.hasErrors('description')}" th:errorclass="text-danger"
-                                th:errors="${Users.description}"></p>
+                                th:errors="${usersDto.description}"></p>
                         </div>
                     </div>
 

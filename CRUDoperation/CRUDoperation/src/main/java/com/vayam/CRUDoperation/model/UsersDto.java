@@ -1,6 +1,7 @@
 package com.vayam.CRUDoperation.model;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,9 +14,9 @@ public class UsersDto {
     @NotEmpty(message="the name is required")
     private String name;
 
-    @NotEmpty(message="the email is required")
+   
     private String email;
-    // @NotNull(message = "Please enter phone number")
+    @NotNull(message="the phone number is required")
     private Long phone;
     @NotEmpty(message="the address is required")
     private String address;

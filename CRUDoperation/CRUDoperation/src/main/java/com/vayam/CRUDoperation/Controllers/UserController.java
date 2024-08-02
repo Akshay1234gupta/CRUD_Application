@@ -23,6 +23,7 @@ import jakarta.validation.Valid;
 
 
 
+
 @Controller
 @RequestMapping("/Users")
 public class UserController {
@@ -35,69 +36,119 @@ public class UserController {
     public String showUserlist(Model model)
     {
         List<Users> users=repo.findAll(Sort.by(Sort.Direction.DESC,"id"));
-        model.addAttribute("Users",users);
+        model.addAttribute("users",users);
         return "Users/index";
 
     }
 
     @GetMapping("/create")
     public String showCreatePage(Model model) {
-        UsersDto UsersDto=new UsersDto();
-        model.addAttribute("UsersDto",UsersDto);
+        UsersDto usersDto=new UsersDto();
+        model.addAttribute("usersDto",usersDto);
 
         return "Users/CreateUsers";
     }
 
-     @PostMapping("/create")
-     public String createUsers(@Valid @ModelAttribute UsersDto UsersDto,BindingResult result) 
-     {
+      @PostMapping("/create")
+      public String createUsers(@Valid @ModelAttribute UsersDto usersDto,BindingResult result) 
+      {
         
-         if(UsersDto.getEmail().isEmpty())
-         {
-             result.addError(new FieldError ("UsersDto","email","the email is required"));
-         }
-         if(result.hasErrors())
-         {
-             return "Users/CreateUsers";
-         }
+          if(usersDto.getEmail().isEmpty())
+          {
+              result.addError(new FieldError ("usersDto","email","the email is required"));
+          }
+          if(result.hasErrors())
+          {
+              return "Users/CreateUsers";
+          }
 
-         Users Users=new Users();
-         Users.setName(UsersDto.getName());
-         Users.setPhone(UsersDto.getPhone());
-         Users.setEmail(UsersDto.getEmail());
-         Users.setAddress(UsersDto.getAddress());
-         Users.setDescription(UsersDto.getDescription());
+          Users users=new Users();
+          users.setName(usersDto.getName());
+          users.setPhone(usersDto.getPhone());
+          users.setEmail(usersDto.getEmail());
+          users.setAddress(usersDto.getAddress());
+          users.setDescription(usersDto.getDescription());
     
-         repo.save(Users);
+          repo.save(users);
 
 
-         return "redirect:/Users";
-     }
+          return "redirect:/Users";
+      }
 
      @GetMapping("/edit")
-     public String showEditpage(Model model,@RequestParam int id)
+     public String showEditpage(Model model,@RequestParam Long id)
       {
-     try{
-           Users Users=repo.findById(id).get();
-           model.addAttribute("Users",Users);
+       try{
+              Users users=repo.findById(id).get();
+              model.addAttribute("users",users);
 
-           UsersDto UsersDto=new UsersDto();
-           UsersDto.setName(Users.getName());
-           UsersDto.setEmail(Users.getEmail());
-           UsersDto.setPhone(Users.getPhone());
-           UsersDto.setAddress(Users.getAddress());
-           UsersDto.setDescription(Users.getDescription());
+              UsersDto usersDto=new UsersDto();
+              usersDto.setName(users.getName());
+              usersDto.setEmail(users.getEmail());
+              usersDto.setPhone(users.getPhone());
+              usersDto.setAddress(users.getAddress());
+              usersDto.setDescription(users.getDescription());
            
-           model.addAttribute("userDto", UsersDto);
-        }
-    catch(Exception ex){
-        System.out.println("Exception: "+ex.getMessage());
-        return "redirect:/Users";
+              model.addAttribute("usersDto", usersDto);
+          }
+        catch(Exception ex)
+        {
+           System.out.println("Exception: "+ex.getMessage());
+           return "redirect:/Users";
      
-   }
+        }
 
-    return "Users/EditUser";
- }
+        return "Users/EditUser";
+      }
+
+      @PostMapping("/edit")
+      public String updateUser(Model model,@RequestParam Long id,@Valid @ModelAttribute UsersDto usersDto,BindingResult result)
+      {
+          try {
+              Users users=repo.findById(id).get();
+              model.addAttribute("users", users);
+
+              if(result.hasErrors())
+              {
+                return "Users/EditUser";
+              }
+              
+              users.setName(usersDto.getName());
+              users.setEmail(usersDto.getEmail());
+              users.setPhone(usersDto.getPhone());
+              users.setAddress(usersDto.getAddress());
+              users.setDescription(usersDto.getDescription());
+
+              repo.save(users);
+
+
+          } catch (Exception ex) {
+            System.out.println("Exception "+ex.getMessage());
+          }
+          
+          return "redirect:/Users";
+        }
+
+        @GetMapping("/delete")
+        public String deleteUser(@RequestParam Long id) {
+
+            try {
+
+                Users users=repo.findById(id).get();
+                
+                repo.delete(users);
+
+                
+            } catch (Exception ex) {
+                System.out.println("Exception "+ex.getMessage());
+
+            }
+            return "redirect:/Users";
+        }
+        
+      
+
+       
 
      
     
